@@ -62,7 +62,7 @@ function IncidentDetails() {
         </div>
         <div className="flex flex-wrap gap-2">
           <Button asChild variant="outline">
-            <Link to="/evidence" search={{ session: incident.sessionId }}>
+            <Link to="/evidence">
               <Fingerprint className="size-4" /> VIEW EVIDENCE
             </Link>
           </Button>

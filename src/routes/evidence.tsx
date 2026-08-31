@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fingerprint, Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { z } from "zod";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { SeverityBadge } from "@/components/kit/Badges";
 import { EventDetailSheet } from "@/components/kit/EventDetailSheet";
 import { Panel } from "@/components/kit/Panel";
@@ -13,12 +11,7 @@ import { useEvents } from "@/hooks/useApi";
 import { timeOf } from "@/lib/format";
 import type { DecoyEvent } from "@/types";
 
-const searchSchema = z.object({
-  session: fallback(z.string(), "all").default("all"),
-});
-
 export const Route = createFileRoute("/evidence")({
-  validateSearch: zodValidator(searchSchema),
   head: () => ({
     meta: [
       { title: "Evidence — CHAKRAVYUH" },
@@ -34,10 +27,9 @@ export const Route = createFileRoute("/evidence")({
 });
 
 function EvidencePage() {
-  const { session } = Route.useSearch();
   const { data, isLoading } = useEvents();
   const [query, setQuery] = useState("");
-  const [sessionFilter, setSessionFilter] = useState(session);
+  const [sessionFilter, setSessionFilter] = useState("all");
   const [selected, setSelected] = useState<DecoyEvent | null>(null);
 
   const sessions = useMemo(() => Array.from(new Set((data ?? []).map((e) => e.sessionId))), [data]);

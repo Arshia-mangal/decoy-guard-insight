@@ -15,6 +15,7 @@ import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as ReplayRouteImport } from './routes/replay'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents.index'
 import { Route as IncidentsIncidentIdRouteImport } from './routes/incidents.$incidentId'
 
@@ -48,6 +49,11 @@ const SessionsRoute = SessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IncidentsIndexRoute = IncidentsIndexRouteImport.update({
   id: '/incidents/',
   path: '/incidents/',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/replay': typeof ReplayRoute
   '/reports': typeof ReportsRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/replay': typeof ReplayRoute
   '/reports': typeof ReportsRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents': typeof IncidentsIndexRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/replay': typeof ReplayRoute
   '/reports': typeof ReportsRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reports'
     | '/sessions'
+    | '/settings'
     | '/incidents/$incidentId'
     | '/incidents/'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reports'
     | '/sessions'
+    | '/settings'
     | '/incidents/$incidentId'
     | '/incidents'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/replay'
     | '/reports'
     | '/sessions'
+    | '/settings'
     | '/incidents/$incidentId'
     | '/incidents/'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   ReplayRoute: typeof ReplayRoute
   ReportsRoute: typeof ReportsRoute
   SessionsRoute: typeof SessionsRoute
+  SettingsRoute: typeof SettingsRoute
   IncidentsIncidentIdRoute: typeof IncidentsIncidentIdRoute
   IncidentsIndexRoute: typeof IncidentsIndexRoute
 }
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/incidents/': {
       id: '/incidents/'
       path: '/incidents'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReplayRoute: ReplayRoute,
   ReportsRoute: ReportsRoute,
   SessionsRoute: SessionsRoute,
+  SettingsRoute: SettingsRoute,
   IncidentsIncidentIdRoute: IncidentsIncidentIdRoute,
   IncidentsIndexRoute: IncidentsIndexRoute,
 }
