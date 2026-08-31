@@ -158,7 +158,7 @@ function ReplayPage() {
         <Panel title="Frame detail" subtitle={current ? current.id : "No event selected"}>
           {current ? (
             <dl className="space-y-4 text-sm">
-              {(([
+              {([
                 ["Timestamp", dateTimeOf(current.timestamp)],
                 ["Asset", current.assetName],
                 ["Action", current.action],
