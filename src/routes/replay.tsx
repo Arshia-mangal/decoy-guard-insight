@@ -158,14 +158,14 @@ function ReplayPage() {
         <Panel title="Frame detail" subtitle={current ? current.id : "No event selected"}>
           {current ? (
             <dl className="space-y-4 text-sm">
-              {([
+              {(([
                 ["Timestamp", dateTimeOf(current.timestamp)],
                 ["Asset", current.assetName],
                 ["Action", current.action],
                 ["Details", current.details],
                 ["Stage", current.stage],
                 ["Session", current.sessionId],
-              ] as const).concat(Object.entries(current.metadata) as never).map(([k, v]: [string, string]) => (
+              ] as [string, string][]).concat(Object.entries(current.metadata)).map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[130px_1fr] gap-3">
                   <dt className="label-xs text-muted-foreground">{k}</dt>
                   <dd className="font-mono text-xs break-words">{v}</dd>
