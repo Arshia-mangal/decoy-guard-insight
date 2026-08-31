@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface PanelProps {
   title?: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
   action?: ReactNode;
   className?: string;
   bodyClassName?: string;

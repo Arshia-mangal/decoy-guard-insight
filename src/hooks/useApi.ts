@@ -11,7 +11,7 @@ export const useIncident = (id: string) =>
 export const useSessions = () => useQuery({ queryKey: ["sessions"], queryFn: api.getSessions });
 
 export const useEvents = (sessionId?: string) =>
-  useQuery({ queryKey: ["events", sessionId ?? "all"], queryFn: () => api.getEvents({ sessionId }) });
+  useQuery({ queryKey: ["events", sessionId ?? "all"], queryFn: () => api.getEvents(sessionId ? { sessionId } : {}) });
 
 export const useAssets = () => useQuery({ queryKey: ["assets"], queryFn: api.getAssets });
 

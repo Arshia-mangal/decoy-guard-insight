@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { API_CONFIG } from "@/services/config";
+import { apiConfig, isMock } from "@/services/config";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -89,19 +89,19 @@ function SettingsPage() {
             <dl className="space-y-3 text-sm">
               <div className="flex justify-between gap-4">
                 <dt className="text-muted-foreground">Mode</dt>
-                <dd className="font-mono text-primary">{API_CONFIG.useMock ? "MOCK" : "LIVE"}</dd>
+                <dd className="font-mono text-primary">{isMock() ? "MOCK" : "LIVE"}</dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-muted-foreground">REST base URL</dt>
-                <dd className="font-mono text-xs">{API_CONFIG.baseUrl}</dd>
+                <dd className="font-mono text-xs">{apiConfig.baseUrl}</dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-muted-foreground">WebSocket</dt>
-                <dd className="font-mono text-xs">{API_CONFIG.wsUrl}</dd>
+                <dd className="font-mono text-xs">{apiConfig.wsUrl || "not configured"}</dd>
               </div>
             </dl>
             <p className="mt-4 text-xs text-muted-foreground">
-              Set VITE_USE_MOCK=false and point VITE_API_BASE_URL at the FastAPI service to go live.
+              Set VITE_DATA_SOURCE=live and point VITE_API_BASE_URL at the FastAPI service to go live.
             </p>
           </Panel>
         </div>

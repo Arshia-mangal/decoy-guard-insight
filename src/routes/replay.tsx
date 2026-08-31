@@ -163,10 +163,9 @@ function ReplayPage() {
                 ["Asset", current.assetName],
                 ["Action", current.action],
                 ["Details", current.details],
-                ["Source IP", current.sourceIp],
-                ["Capture method", current.captureMethod],
+                ["Stage", current.stage],
                 ["Session", current.sessionId],
-              ] as const).map(([k, v]) => (
+              ] as const).concat(Object.entries(current.metadata) as never).map(([k, v]: [string, string]) => (
                 <div key={k} className="grid grid-cols-[130px_1fr] gap-3">
                   <dt className="label-xs text-muted-foreground">{k}</dt>
                   <dd className="font-mono text-xs break-words">{v}</dd>

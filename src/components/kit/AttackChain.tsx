@@ -14,7 +14,7 @@ const icons: Record<string, LucideIcon> = {
 
 interface Props {
   stages: AttackStage[];
-  selectedId?: string;
+  selectedId?: string | undefined;
   onSelect?: (stage: AttackStage) => void;
 }
 
