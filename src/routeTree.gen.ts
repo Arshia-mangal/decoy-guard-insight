@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DecoysRouteImport } from './routes/decoys'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents.index'
 import { Route as IncidentsIncidentIdRouteImport } from './routes/incidents.$incidentId'
@@ -17,6 +18,11 @@ import { Route as IncidentsIncidentIdRouteImport } from './routes/incidents.$inc
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecoysRoute = DecoysRouteImport.update({
+  id: '/decoys',
+  path: '/decoys',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SessionsRoute = SessionsRouteImport.update({
@@ -37,12 +43,14 @@ const IncidentsIncidentIdRoute = IncidentsIncidentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/decoys': typeof DecoysRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/decoys': typeof DecoysRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents': typeof IncidentsIndexRoute
@@ -50,20 +58,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/decoys': typeof DecoysRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sessions' | '/incidents/$incidentId' | '/incidents/'
+  fullPaths:
+    '/' | '/decoys' | '/sessions' | '/incidents/$incidentId' | '/incidents/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sessions' | '/incidents/$incidentId' | '/incidents'
-  id: '__root__' | '/' | '/sessions' | '/incidents/$incidentId' | '/incidents/'
+  to: '/' | '/decoys' | '/sessions' | '/incidents/$incidentId' | '/incidents'
+  id:
+    | '__root__'
+    | '/'
+    | '/decoys'
+    | '/sessions'
+    | '/incidents/$incidentId'
+    | '/incidents/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DecoysRoute: typeof DecoysRoute
   SessionsRoute: typeof SessionsRoute
   IncidentsIncidentIdRoute: typeof IncidentsIncidentIdRoute
   IncidentsIndexRoute: typeof IncidentsIndexRoute
@@ -76,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decoys': {
+      id: '/decoys'
+      path: '/decoys'
+      fullPath: '/decoys'
+      preLoaderRoute: typeof DecoysRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sessions': {
@@ -104,6 +128,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DecoysRoute: DecoysRoute,
   SessionsRoute: SessionsRoute,
   IncidentsIncidentIdRoute: IncidentsIncidentIdRoute,
   IncidentsIndexRoute: IncidentsIndexRoute,
