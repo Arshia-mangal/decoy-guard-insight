@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DecoysRouteImport } from './routes/decoys'
+import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents.index'
 import { Route as IncidentsIncidentIdRouteImport } from './routes/incidents.$incidentId'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const DecoysRoute = DecoysRouteImport.update({
   id: '/decoys',
   path: '/decoys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SessionsRoute = SessionsRouteImport.update({
@@ -44,6 +50,7 @@ const IncidentsIncidentIdRoute = IncidentsIncidentIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/decoys': typeof DecoysRoute
+  '/evidence': typeof EvidenceRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/decoys': typeof DecoysRoute
+  '/evidence': typeof EvidenceRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents': typeof IncidentsIndexRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/decoys': typeof DecoysRoute
+  '/evidence': typeof EvidenceRoute
   '/sessions': typeof SessionsRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
   '/incidents/': typeof IncidentsIndexRoute
@@ -66,13 +75,25 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/decoys' | '/sessions' | '/incidents/$incidentId' | '/incidents/'
+    | '/'
+    | '/decoys'
+    | '/evidence'
+    | '/sessions'
+    | '/incidents/$incidentId'
+    | '/incidents/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/decoys' | '/sessions' | '/incidents/$incidentId' | '/incidents'
+  to:
+    | '/'
+    | '/decoys'
+    | '/evidence'
+    | '/sessions'
+    | '/incidents/$incidentId'
+    | '/incidents'
   id:
     | '__root__'
     | '/'
     | '/decoys'
+    | '/evidence'
     | '/sessions'
     | '/incidents/$incidentId'
     | '/incidents/'
@@ -81,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DecoysRoute: typeof DecoysRoute
+  EvidenceRoute: typeof EvidenceRoute
   SessionsRoute: typeof SessionsRoute
   IncidentsIncidentIdRoute: typeof IncidentsIncidentIdRoute
   IncidentsIndexRoute: typeof IncidentsIndexRoute
@@ -100,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/decoys'
       fullPath: '/decoys'
       preLoaderRoute: typeof DecoysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evidence': {
+      id: '/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof EvidenceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sessions': {
@@ -129,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DecoysRoute: DecoysRoute,
+  EvidenceRoute: EvidenceRoute,
   SessionsRoute: SessionsRoute,
   IncidentsIncidentIdRoute: IncidentsIncidentIdRoute,
   IncidentsIndexRoute: IncidentsIndexRoute,
